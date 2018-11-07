@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Song {
 
@@ -15,12 +17,17 @@ public class Song {
 	private String title;
 	private String time;
 
+	@JsonIgnore
 	@ManyToOne
 	private Album album;
 
-	public Song(String title, String time) {
+	public Song() {
+	}
+
+	public Song(String title, String time, Album album) {
 		this.title = title;
 		this.time = time;
+		this.album = album;
 	}
 
 	public Long getId() {

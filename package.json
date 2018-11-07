@@ -1,10 +1,9 @@
 {
   "name": "Album-Collection",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "parcel src/main/resources/static/js/index.js",
     "build": "parcel build src/main/resources/static/js/index.js --out-dir src/main/resources/static/dist"
   },
@@ -20,6 +19,8 @@
   },
   "homepage": "https://github.com/WaynePL/Album-Collection#readme",
   "devDependencies": {
+    "jest": "^23.6.0",
     "parcel-bundler": "^1.10.3"
-  }
+  },
+  "description": ""
 }
