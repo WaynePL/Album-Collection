@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Artist {
@@ -36,7 +37,7 @@ public class Artist {
 		return imageURL;
 	}
 
-	public Collection<Albums> getAlbums() {
+	public Collection<Album> getAlbums() {
 		return albums;
 	}
 
