@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Album {
@@ -15,6 +16,8 @@ public class Album {
 	private Long id;
 	private String title;
 	private String image;
+
+	@OneToMany(mappedBy = "album")
 	private Collection<Song> songs;
 	private String recordLabel;
 
