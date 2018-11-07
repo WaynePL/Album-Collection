@@ -1,5 +1,6 @@
 package org.wecancodeit.AlbumCollection.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ public class Artist {
 	private String imageURL;
 
 	@OneToMany(mappedBy = "artist")
-	private Collection<Album> albums;
+	private Collection<Album> albums = new ArrayList<Album>();
 
 	public Artist() {
 	}
