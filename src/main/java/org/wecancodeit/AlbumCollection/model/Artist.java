@@ -14,13 +14,14 @@ public class Artist {
 	private Long id;
 	private String name;
 	private String imageURL;
-	private Collection<Albums> albums;
 
-	public Artist(String name, String imageURL, Collection<Albums> albums) {
+	@OneToMany(mappedBy = "artist")
+	private Collection<Album> albums;
+
+	public Artist(String name, String imageURL) {
 
 		this.name = name;
 		this.imageURL = imageURL;
-		this.albums = albums;
 	}
 
 	public Long getId() {
