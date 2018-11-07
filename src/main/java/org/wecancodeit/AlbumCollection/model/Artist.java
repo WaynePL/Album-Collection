@@ -19,6 +19,9 @@ public class Artist {
 	@OneToMany(mappedBy = "artist")
 	private Collection<Album> albums;
 
+	public Artist() {
+	}
+
 	public Artist(String name, String imageURL) {
 
 		this.name = name;
