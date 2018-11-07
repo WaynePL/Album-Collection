@@ -1,4 +1,4 @@
-package org.wecancodeit.AlbumCollection.Artist;
+package org.wecancodeit.AlbumCollection.model;
 
 import java.util.Collection;
 
