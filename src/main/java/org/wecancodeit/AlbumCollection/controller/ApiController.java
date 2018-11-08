@@ -1,5 +1,7 @@
 package org.wecancodeit.AlbumCollection.controller;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,5 +18,10 @@ public class ApiController {
 	@GetMapping("/api/artist/{id}")
 	public Artist getOneArtist(@PathVariable(value = "id") Long id) {
 		return artistRepo.findById(id).get();
+	}
+
+	@GetMapping("/api/artists")
+	public Collection<Artist> getAllArtists() {
+		return (Collection<Artist>) artistRepo.findAll();
 	}
 }

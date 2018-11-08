@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.js"],"names":["require"],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;eAAWA,OAAO,CAAC,UAAD","file":"index.map","sourceRoot":"..\\src\\main\\resources\\static\\js","sourcesContent":["const {} = require('./app.js')"]}
