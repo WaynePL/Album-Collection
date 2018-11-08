@@ -29,6 +29,8 @@ public class MusicPopulator implements CommandLineRunner {
 		Artist artistOne = artistRepo.save(new Artist("The Who", ""));
 		Album albumOne = albumRepo.save(new Album("The Kids Are Alright", "", "Brunswick", artistOne));
 		Song songOne = songRepo.save(new Song("My Generation", "4:31", albumOne));
+		Album albumTwo = albumRepo.save(new Album("Who Are You", "", "MCA", artistOne));
+		Song songTwo = songRepo.save(new Song("Who Are You", "6:16", albumTwo));
 
 	}
 }
