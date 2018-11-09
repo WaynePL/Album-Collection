@@ -1,15 +1,16 @@
 
+function fetchCall(address){
+	return fetch(`/api/${address}`).then(res => res.json())
+}
 
 function ajaxCall(address){
 	const xhttp = new XMLHttpRequest()
 
-	xhttp.onreadystatechange = function() {
+	return xhttp.onreadystatechange = function() {
 
 		if (this.readyState == 4 && this.status == 200) {
 			console.log(this.responseText)
-			const allArtists = JSON.parse(this.responseText)
-			console.log(allArtists)
-			makeMain(allArtists)
+			return JSON.parse(this.responseText)
 		}
 	}
 
@@ -18,6 +19,7 @@ function ajaxCall(address){
 }
 
 module.exports = {
+	fetchCall,
 	ajaxCall
 }
 
