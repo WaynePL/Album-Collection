@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "parcel src/main/resources/index.html",
+    "start": "parcel src/main/resources/static/index.html",
     "build": "parcel build src/main/resources/static/js/index.js --out-dir src/main/resources/static/dist"
   },
   "repository": {

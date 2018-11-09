@@ -7,5 +7,9 @@ function makeMain(jsonArray){
 			<h1>${elem.name}</h1>
 		`
 	})
-	document.body.innerHTML += main.innerHTML	
+	document.body.innerHTML += main.innerHTML
+}
+
+module.exports = {
+	makeMain
 }
