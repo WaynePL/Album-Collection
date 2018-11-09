@@ -3,7 +3,7 @@ function makeMain(jsonArray){
 	const main = document.createElement('main');
 	jsonArray.forEach(elem => {
 
-		main.innerHTML = `
+		main.innerHTML += `
 			<h1>${elem.name}</h1>
 		`
 	})

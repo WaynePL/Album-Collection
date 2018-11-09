@@ -1,5 +1,7 @@
 const {makeMain} = require('./dom.js')
-const {ajaxCall} = require('./app.js')
+const {fetchCall} = require('./app.js')
 
-ajaxCall('artists');
-ajaxCall('albums')
+fetchCall('artists').then(data => {
+	console.log(data)
+	makeMain(data)});
+// makeMain(ajaxCall('albums'));
