@@ -7,6 +7,7 @@ function ajaxCall(address){
 
 		if (this.readyState == 4 && this.status == 200) {
 			const allArtists = JSON.parse(this.responseText)
+			console.log(allArtists)
 			makeMain(allArtists)
 		}
 	}
@@ -16,4 +17,5 @@ function ajaxCall(address){
 }
 
 ajaxCall('artists');
+ajaxCall('albums');
 
