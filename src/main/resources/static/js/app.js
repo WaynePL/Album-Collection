@@ -8,6 +8,7 @@ function ajaxCall(address){
 		if (this.readyState == 4 && this.status == 200) {
 			console.log(this.responseText)
 			const allArtists = JSON.parse(this.responseText)
+			console.log(allArtists)
 			makeMain(allArtists)
 		}
 	}
@@ -19,3 +20,4 @@ function ajaxCall(address){
 module.exports = {
 	ajaxCall
 }
+

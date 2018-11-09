@@ -8,7 +8,6 @@ function makeMain(jsonArray){
 		`
 	})
 	document.body.innerHTML += main.innerHTML
-	
 }
 
 module.exports = {

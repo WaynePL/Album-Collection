@@ -17,7 +17,7 @@ public class Album {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String title;
+	private String name;
 	private String image;
 
 	@OneToMany(mappedBy = "album")
@@ -30,22 +30,21 @@ public class Album {
 
 	public Album(String title, String image, String recordLabel, Artist artist) {
 		super();
-		this.title = title;
+		this.name = title;
 		this.image = image;
 		this.recordLabel = recordLabel;
 		this.artist = artist;
 	}
 
 	public Album() {
-		super();
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
 	public String getImage() {
