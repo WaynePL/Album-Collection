@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -28,16 +29,21 @@ public class Album {
 	@ManyToOne
 	private Artist artist;
 
+	@OneToMany(mappedBy = "album")
+	private Collection<Comment> comments;
+
+	@ManyToMany
+	private Collection<Tag> tags = new ArrayList<>();
+
+	public Album() {
+	}
+
 	public Album(String title, String image, String recordLabel, Artist artist) {
 		super();
 		this.title = title;
 		this.image = image;
 		this.recordLabel = recordLabel;
 		this.artist = artist;
-	}
-
-	public Album() {
-		super();
 	}
 
 	public Long getId() {
