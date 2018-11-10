@@ -8,10 +8,19 @@ function makeForms(labelText){
 	main.appendChild(label)
 }
 
+function removeChildren(element){
+	while (element.hasChildNodes()) {
+		element.lastChild.remove();
+	}
+}
+
 
 
 function makeArtistMain(jsonArray){
+	
 	const main = document.querySelector('main')
+	
+	removeChildren(main);
 	jsonArray.forEach(elem => {
 		const div = document.createElement('div');
 		div.classList.add('main_content')
@@ -39,7 +48,8 @@ function makeArtistMain(jsonArray){
 
 function makeAlbumMain(jsonArray){
 	const main = document.querySelector('main')
-	console.log(main.childNodes)
+	console.log(main.childNodes);
+	removeChildren(main);
 	main.childNodes.forEach(elem => elem.remove())
 
 	jsonArray.forEach(elem => {
@@ -70,7 +80,7 @@ function makeAlbumMain(jsonArray){
 function makeSongMain(jsonArray){
 	console.log(jsonArray)
 	const main = document.querySelector('main')
-	main.childNodes.forEach(elem => elem.remove())
+	removeChildren(main);
 
 	jsonArray.forEach(elem => {
 		const div = document.createElement('div');
@@ -79,7 +89,6 @@ function makeSongMain(jsonArray){
 				${elem.name}
 			</h2>
 		`
-		addMakeMain(div, elem.songs)
 		main.appendChild(div)
 	})
 	const button = document.createElement('button')
