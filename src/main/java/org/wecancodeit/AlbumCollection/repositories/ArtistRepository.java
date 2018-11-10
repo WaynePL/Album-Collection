@@ -5,4 +5,6 @@ import org.wecancodeit.AlbumCollection.model.Artist;
 
 public interface ArtistRepository extends CrudRepository<Artist, Long> {
 
+	Artist findByName(String string);
+
 }
