@@ -1,0 +1,7 @@
+*{
+	background-color:  linear-gradient(#000000, #010038);
+}
+
+header {
+	background-color: #010038;
+}
