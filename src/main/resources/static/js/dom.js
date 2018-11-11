@@ -10,8 +10,10 @@ function removeChildren(element){
 function makeArtistMain(jsonArray){
 	document.querySelector('.returnToArtist').style.display = 'none';	
 	removeChildren(main);
-
-	//makes artist 
+	const artistTitle = document.createElement('h2');
+	artistTitle.innerText = 'Artists';
+	main.appendChild(artistTitle);
+	//makes artists 
 	jsonArray.forEach(artist => {
 		const div = document.createElement('div');
 		div.classList.add('main_content')
@@ -31,12 +33,14 @@ function makeAddArtistButton(){
 	const button = document.createElement('button')
 	button.innerText = 'Add Artist';
 	button.addEventListener('click', () => {
-		const artistName = makeForms('Artist Name:', 'artistName');
-		const artistUrl = makeForms('Artist Image Location:', 'artistUrl')
+		makeForms('Artist Name:', 'artistName');
+		makeForms('Artist Image Location:', 'artistUrl')
 		const submitButton = document.createElement('button')
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);
 		
+		const artistName = document.querySelector('#artistName');
+		const artistUrl = document.querySelector('#artistUrl');
 		submitButton.addEventListener('click', () => {
 			fetch(`api/artist/add`, {
 				method: 'post',
@@ -54,7 +58,7 @@ function makeAddArtistButton(){
 function makeAlbumMain(artist, parentName){
 	document.querySelector('.returnToArtist').style.display = 'block';
 	removeChildren(main);
-	main.childNodes.forEach(elem => elem.remove())
+	//main.childNodes.forEach(elem => elem.remove())
 
 	artist.forEach(album => {
 		const div = document.createElement('div');
@@ -68,22 +72,26 @@ function makeAlbumMain(artist, parentName){
 		addMakeMain(div, album.songs, makeSongMain, album.name)
 		main.appendChild(div)
 	})
-	makeAddAlbumButton();
+	makeAddAlbumButton(parentName);
 }
 
-function makeAddAlbumButton() {
+function makeAddAlbumButton(parentName) {
 	//makes basic button
 	const button = document.createElement('button')
 	button.innerText = 'Add Album';
 	//makes listener to create form with submit button
 	button.addEventListener('click', () => {
-		const albumName = makeForms('Album Name:', 'albumName');
-		const recordLabel = makeForms('Record Label:', 'recordLabel');
-		const albumUrl = makeForms('Image Location:', 'albumUrl')
+		makeForms('Album Name:', 'albumName');
+		makeForms('Record Label:', 'recordLabel');
+		makeForms('Image Location:', 'albumUrl')
 		const submitButton = document.createElement('button')
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);
-
+		
+		const albumName = document.querySelector('#albumName');
+		const recordLabel = document.querySelector('#recordLabel');
+		const albumUrl = document.querySelector('#albumUrl');
+		
 		//listener to submitButton then fetch new api to make page
 		submitButton.addEventListener('click', () => {
 			
@@ -122,20 +130,22 @@ function makeSongMain(album, parentName){
 		`
 		main.appendChild(div)
 	})
-	makeAddSongButton()
+	makeAddSongButton(parentName)
 }
 
 
-function makeAddSongButton(){
+function makeAddSongButton(parentName){
 	const button = document.createElement('button')
 	button.innerText = 'Add Song';
 	button.addEventListener('click', () => {
-		const songName = makeForms('Song Name:', 'songName');
-		const songLength = makeForms('Run Time:', 'songLength');
+		makeForms('Song Name:', 'songName');
+		makeForms('Run Time:', 'songLength');
 		const submitButton = document.createElement('button')
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);
-		
+		const songName = document.querySelector('#songName')
+		const songLength = document.querySelector('#songLength')
+
 		submitButton.addEventListener('click', function(){
 			fetch(`api/song/add`, {
 				method: 'post',
@@ -162,6 +172,7 @@ function makeForms(labelText, id){
 	label.appendChild(input)
 	main.appendChild(label)
 }
+
 function addMakeMain(div, array, makeMain, parentName){
 	div.addEventListener('click', () => {makeMain(array, parentName)});
 }
