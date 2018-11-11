@@ -1,8 +1,9 @@
-function makeForms(labelText){
+function makeForms(labelText, id){
 	const main = document.querySelector('main');
 	const input = document.createElement('input');
 	const label = document.createElement('label')
 	label.innerText = labelText
+	label.id = id;
 	input.setAttribute('type', 'text');
 	label.appendChild(input)
 	main.appendChild(label)
@@ -29,15 +30,15 @@ function makeArtistMain(jsonArray){
 				${elem.name}
 			</h2>
 		`
-		addMakeMain(div, elem.albums, makeAlbumMain) 
+		addMakeMain(div, elem.albums, makeAlbumMain, elem.name) 
 		main.appendChild(div)
 	})
 
 	const button = document.createElement('button')
 	button.innerText = 'Add Artist';
 	button.addEventListener('click', () => {
-		makeForms('Artist Name:');
-		makeForms('Artist Image Location:')
+		makeForms('Artist Name:', 'artistName');
+		makeForms('Artist Image Location:', 'artistUrl')
 		const submitButton = document.createElement('button')
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);
@@ -46,7 +47,7 @@ function makeArtistMain(jsonArray){
 	main.appendChild(button)
 }
 
-function makeAlbumMain(jsonArray){
+function makeAlbumMain(jsonArray, parentName){
 	const main = document.querySelector('main')
 	console.log(main.childNodes);
 	removeChildren(main);
@@ -60,15 +61,15 @@ function makeAlbumMain(jsonArray){
 				${elem.name}
 			</h2>
 		`
-		addMakeMain(div, elem.songs, makeSongMain)
+		addMakeMain(div, elem.songs, makeSongMain, elem.name)
 		main.appendChild(div)
 	})
 	const button = document.createElement('button')
 	button.innerText = 'Add Album';
 	button.addEventListener('click', () => {
-		makeForms('Album Name:');
-		makeForms('Record Label:');
-		makeForms('Image Location:')
+		makeForms('Album Name:', 'albumName');
+		makeForms('Record Label:', 'recordLabel');
+		makeForms('Image Location:', 'albumUrl')
 		const submitButton = document.createElement('button')
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);
@@ -77,7 +78,7 @@ function makeAlbumMain(jsonArray){
 	main.appendChild(button)
 }
 
-function makeSongMain(jsonArray){
+function makeSongMain(jsonArray, parentName){
 	console.log(jsonArray)
 	const main = document.querySelector('main')
 	removeChildren(main);
@@ -94,17 +95,30 @@ function makeSongMain(jsonArray){
 	const button = document.createElement('button')
 	button.innerText = 'Add Song';
 	button.addEventListener('click', () => {
-		makeForms('Song Name:');
-		makeForms('Run Time:');
+		makeForms('Song Name:', 'songName');
+		makeForms('Run Time:', 'songLength');
 		const submitButton = document.createElement('button')
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);
+		submitButton.addEventListener('click', function(){
+			const songName = document.querySelector('#songName')
+			const songLength = document.querySelector('#songName')
+			fetch(`api/song/add`, {
+				method: 'post',
+				body: JSON.stringify({
+					name: songName.value;
+					length: songLength.value;
+					album: parentName;
+				})
+			})
+			makeSongMain(jsonArray)
+		})
 		button.remove();
 	})
 	main.appendChild(button)
 }
-function addMakeMain(div, array, makeMain){
-	div.addEventListener('click', () => {makeMain(array)});
+function addMakeMain(div, array, makeMain, parentName){
+	div.addEventListener('click', () => {makeMain(array, parentName)});
 }
 
 module.exports = {
