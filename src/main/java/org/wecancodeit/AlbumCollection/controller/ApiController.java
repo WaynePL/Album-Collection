@@ -56,13 +56,14 @@ public class ApiController {
 		JSONObject json = new JSONObject(body);
 		albumRepo.save(new Album(json.getString("name"), json.getString("imageUrl"), json.getString("recordLabel"),
 				artistRepo.findByName(json.getString("artistName"))));
-		return (Collection<Album>) albumRepo.findByArtist();
+		return null;
 	}
 
 	@PostMapping("api/song/add")
 	public Collection<Song> addNewSong(@RequestBody String body) throws JSONException {
 		JSONObject json = new JSONObject(body);
-		songRepo.save(new Song(json.getString("name"), json.getString("runTime"), albumRepo.findByName(json.getString("albumName")));
-		return (Collection<Song>) songRepo.findByAlbum();
+		songRepo.save(new Song(json.getString("name"), json.getString("length"),
+				albumRepo.findByName(json.getString("album"))));
+		return null;
 	}
 }
