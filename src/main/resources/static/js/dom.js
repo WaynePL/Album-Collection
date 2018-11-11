@@ -113,9 +113,12 @@ function makeSongMain(album, parentName){
 		const div = document.createElement('div');
 		div.classList.add('main_content');
 		div.innerHTML += `
-			<h2 id="${song.name}" data-songId="${song.id}">
-				${song.name}
-			</h2>
+			<div class="song_item">
+				<h2 id="${song.name}" data-songId="${song.id}">
+					${song.name}
+				</h2>
+				<h4>${song.time}</h4>
+				</div>
 		`
 		main.appendChild(div)
 	})
