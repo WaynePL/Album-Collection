@@ -24,15 +24,21 @@ header {
 footer{
 	margin-top: 500px;
 }
-
 .main_content {
-	margin: 2rem;
+	margin: 2rem;	
+	display: flex;
+}
+.main_content h2{
 	padding: 2rem;
 	transition: 0.5s;
 }
 .main_content :hover {
 	box-shadow: 2px 0 15px gray inset;
 	cursor: pointer;
+}
+
+.main_content img {
+	max-height: 120px;
 }
 
 .returnToArtist {
