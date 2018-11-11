@@ -21,12 +21,34 @@ public class Comment {
 	@ManyToOne
 	private Album album;
 
+	@JsonIgnore
+	@ManyToOne
+	private Artist artist;
+
+	@JsonIgnore
+	@ManyToOne
+	private Song song;
+
+	private String username;
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public Song getSong() {
+		return song;
+	}
+
 	public Comment() {
 	}
 
-	public Comment(String text, Album album) {
+	public Comment(String username, String text) {
+		this.username = username;
 		this.text = text;
-		this.album = album;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 
 	public Long getId() {

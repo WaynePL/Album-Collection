@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -19,6 +20,20 @@ public class Artist {
 
 	@OneToMany(mappedBy = "artist")
 	private Collection<Album> albums = new ArrayList<Album>();
+
+	@ManyToMany
+	private Collection<Tag> tags;
+
+	@OneToMany(mappedBy = "artist")
+	private Collection<Comment> comments;
+
+	public Collection<Tag> getTags() {
+		return tags;
+	}
+
+	public Collection<Comment> getComments() {
+		return comments;
+	}
 
 	public Artist() {
 	}
