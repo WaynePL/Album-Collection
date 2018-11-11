@@ -33,15 +33,11 @@ footer{
 	transition: 0.5s;
 }
 .main_content :hover {
-	box-shadow: 2px 0 15px gray inset;
+	box-shadow: inset -10px -3px 6px gray;
 	cursor: pointer;
 }
 
 .main_content img {
 	max-height: 120px;
-}
-
-.returnToArtist {
-	display: none;
 }
 
