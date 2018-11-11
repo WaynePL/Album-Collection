@@ -1,8 +1,41 @@
 *{
-	background-color:  linear-gradient(#000000, #010038);
+	margin: 0;
+	padding: 0;
+
+}
+
+html{
+	background-image:  linear-gradient(#000000, #010038);
+	color: white;
+	background-repeat: no-repeat;
+    background-size: auto;
 }
 
 header {
 	background-color: #010038;
 	color: white;
+	margin: 2rem;
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
+
+footer{
+	margin-top: 500px;
+}
+
+.main_content {
+	margin: 2rem;
+	padding: 2rem;
+	transition: 0.5s;
+}
+.main_content :hover {
+	box-shadow: 2px 0 15px gray inset;
+	cursor: pointer;
+}
+
+.returnToArtist {
+	display: none;
+}
+

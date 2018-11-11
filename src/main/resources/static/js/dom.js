@@ -20,6 +20,7 @@ function removeChildren(element){
 function makeArtistMain(jsonArray){
 	
 	const main = document.querySelector('main')
+	document.querySelector('.returnToArtist').style.display = 'none';
 	
 	removeChildren(main);
 	jsonArray.forEach(elem => {
@@ -61,6 +62,7 @@ function makeArtistMain(jsonArray){
 
 function makeAlbumMain(jsonArray, parentName){
 	const main = document.querySelector('main')
+	document.querySelector('.returnToArtist').style.display = 'block';
 	removeChildren(main);
 	main.childNodes.forEach(elem => elem.remove())
 
@@ -105,10 +107,12 @@ function makeAlbumMain(jsonArray, parentName){
 
 function makeSongMain(jsonArray, parentName){
 	const main = document.querySelector('main')
+	document.querySelector('.returnToArtist').style.display = 'block';
 	removeChildren(main);
 
 	jsonArray.forEach(elem => {
 		const div = document.createElement('div');
+		div.classList.add('main_content');
 		div.innerHTML += `
 			<h2 id="${elem.name}" data-songId="${elem.id}">
 				${elem.name}

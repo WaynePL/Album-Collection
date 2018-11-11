@@ -29,6 +29,14 @@ public class Tag {
 	@ManyToMany(mappedBy = "tags")
 	private Collection<Album> albums;
 
+	@JsonIgnore
+	@ManyToMany(mappedBy = "tags")
+	private Collection<Song> songs;
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "tags")
+	private Collection<Artist> artists;
+
 	public String getTagName() {
 		return tagName;
 	}

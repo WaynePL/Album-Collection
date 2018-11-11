@@ -19,6 +19,19 @@ public class Album {
 	@GeneratedValue
 	private Long id;
 	private String name;
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public Collection<Comment> getComments() {
+		return comments;
+	}
+
+	public Collection<Tag> getTags() {
+		return tags;
+	}
+
 	private String image;
 
 	@OneToMany(mappedBy = "album")
