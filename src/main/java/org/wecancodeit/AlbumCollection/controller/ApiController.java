@@ -44,8 +44,9 @@ public class ApiController {
 		return (Collection<Album>) albumRepo.findAll();
 	}
 
-	@PostMapping("api/artists/add")
+	@PostMapping("api/artist/add")
 	public Collection<Artist> addNewArtists(@RequestBody String body) throws JSONException {
+		System.out.println(body);
 		JSONObject json = new JSONObject(body);
 		artistRepo.save(new Artist(json.getString("name"), json.getString("imageUrl")));
 		return (Collection<Artist>) artistRepo.findAll();
@@ -54,16 +55,17 @@ public class ApiController {
 	@PostMapping("api/album/add")
 	public Collection<Album> addNewAlbums(@RequestBody String body) throws JSONException {
 		JSONObject json = new JSONObject(body);
-		albumRepo.save(new Album(json.getString("name"), json.getString("imageUrl"), json.getString("recordLabel"),
-				artistRepo.findByName(json.getString("artistName"))));
-		return null;
+		Artist artist = artistRepo.findByName(json.getString("artistName"));
+		albumRepo.save(
+				new Album(json.getString("name"), json.getString("imageUrl"), json.getString("recordLabel"), artist));
+		return artist.getAlbums();
 	}
 
 	@PostMapping("api/song/add")
 	public Collection<Song> addNewSong(@RequestBody String body) throws JSONException {
 		JSONObject json = new JSONObject(body);
-		songRepo.save(new Song(json.getString("name"), json.getString("length"),
-				albumRepo.findByName(json.getString("album"))));
-		return null;
+		Album album = albumRepo.findByName(json.getString("album"));
+		songRepo.save(new Song(json.getString("name"), json.getString("length"), album));
+		return album.getSongs();
 	}
 }

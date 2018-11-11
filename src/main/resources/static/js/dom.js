@@ -3,7 +3,7 @@ function makeForms(labelText, id){
 	const input = document.createElement('input');
 	const label = document.createElement('label')
 	label.innerText = labelText
-	label.id = id;
+	input.id = id;
 	input.setAttribute('type', 'text');
 	label.appendChild(input)
 	main.appendChild(label)
@@ -42,6 +42,18 @@ function makeArtistMain(jsonArray){
 		const submitButton = document.createElement('button')
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);
+		submitButton.addEventListener('click', () => {
+			const artistName = document.querySelector('#artistName')
+			const artistUrl = document.querySelector('#artistUrl')
+			console.log(artistName.value)
+			fetch(`api/artist/add`, {
+				method: 'post',
+				body: JSON.stringify({
+					name: artistName.value,
+					imageUrl: artistUrl.value
+				})
+			}).then(response => response.json()).then(data => {makeArtistMain(data)})
+		})
 		button.remove();
 	})
 	main.appendChild(button)
@@ -49,7 +61,6 @@ function makeArtistMain(jsonArray){
 
 function makeAlbumMain(jsonArray, parentName){
 	const main = document.querySelector('main')
-	console.log(main.childNodes);
 	removeChildren(main);
 	main.childNodes.forEach(elem => elem.remove())
 
@@ -73,13 +84,26 @@ function makeAlbumMain(jsonArray, parentName){
 		const submitButton = document.createElement('button')
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);
+		submitButton.addEventListener('click', () => {
+			const albumName = document.querySelector('#albumName')
+			const recordLabel = document.querySelector('#recordLabel')
+			const albumUrl = document.querySelector('#albumUrl')
+			fetch(`api/album/add`, {
+				method: 'post',
+				body: JSON.stringify({
+					name: albumName.value,
+					recordLabel: recordLabel.value,
+					imageUrl: albumUrl.value,
+					artistName: parentName
+				})
+			}).then(response => response.json()).then(data => {makeAlbumMain(data)})
+		})
 		button.remove();
 	})
 	main.appendChild(button)
 }
 
 function makeSongMain(jsonArray, parentName){
-	console.log(jsonArray)
 	const main = document.querySelector('main')
 	removeChildren(main);
 
@@ -106,12 +130,12 @@ function makeSongMain(jsonArray, parentName){
 			fetch(`api/song/add`, {
 				method: 'post',
 				body: JSON.stringify({
-					name: songName.value;
-					length: songLength.value;
-					album: parentName;
+					name: songName.value,
+					length: songLength.value,
+					album: parentName
 				})
-			})
-			makeSongMain(jsonArray)
+			}).then(response => response.json()).then(data => {makeSongMain(data)})
+			
 		})
 		button.remove();
 	})
