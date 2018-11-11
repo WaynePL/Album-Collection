@@ -5,4 +5,6 @@ import org.wecancodeit.AlbumCollection.model.Album;
 
 public interface AlbumRepository extends CrudRepository<Album, Long> {
 
+	Album findByName(String string);
+
 }
