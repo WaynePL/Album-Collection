@@ -219,6 +219,7 @@ function makeSongMain(album){
 		main.appendChild(div)
 	})
 	makeAddSongButton(album.name);
+	console.log('adding comments')
 	makeCommentSection(album.comments, album.id, 'album')
 	makeTagSection(album.tags, album.id, 'album')
 }

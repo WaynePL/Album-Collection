@@ -17,6 +17,7 @@ import org.wecancodeit.AlbumCollection.model.Song;
 import org.wecancodeit.AlbumCollection.model.Tag;
 import org.wecancodeit.AlbumCollection.repositories.AlbumRepository;
 import org.wecancodeit.AlbumCollection.repositories.ArtistRepository;
+import org.wecancodeit.AlbumCollection.repositories.CommentRepository;
 import org.wecancodeit.AlbumCollection.repositories.SongRepository;
 import org.wecancodeit.AlbumCollection.repositories.TagRepository;
 
@@ -34,6 +35,9 @@ public class ApiController {
 
 	@Autowired
 	TagRepository tagRepo;
+
+	@Autowired
+	CommentRepository commentRepo;
 
 	@GetMapping("/api/artist/{id}")
 	public Artist getOneArtist(@PathVariable(value = "id") Long id) {
@@ -113,27 +117,28 @@ public class ApiController {
 			throws JSONException {
 		JSONObject json = new JSONObject(body);
 		Song song = songRepo.findById(id).get();
-		tagRepo.save(new Tag(json.getString("name"), song));
+		commentRepo.save(new Comment(json.getString("username"), json.getInt("rating"), json.getString("name"), song));
 		songRepo.save(song);
 		return song.getComments();
 	}
 
-	@PostMapping("api/album/{id}/add-tag")
+	@PostMapping("api/album/{id}/add-comment")
 	public Collection<Comment> addAlbumComment(@PathVariable(value = "id") Long id, @RequestBody String body)
 			throws JSONException {
 		JSONObject json = new JSONObject(body);
 		Album album = albumRepo.findById(id).get();
-		tagRepo.save(new Tag(json.getString("name"), album));
+		commentRepo.save(new Comment(json.getString("username"), json.getInt("rating"), json.getString("name"), album));
 		albumRepo.save(album);
 		return album.getComments();
 	}
 
-	@PostMapping("api/artist/{id}/add-tag")
+	@PostMapping("api/artist/{id}/add-comment")
 	public Collection<Comment> addArtistComment(@PathVariable(value = "id") Long id, @RequestBody String body)
 			throws JSONException {
 		JSONObject json = new JSONObject(body);
 		Artist artist = artistRepo.findById(id).get();
-		tagRepo.save(new Tag(json.getString("name"), artist));
+		commentRepo
+				.save(new Comment(json.getString("username"), json.getInt("rating"), json.getString("name"), artist));
 		artistRepo.save(artist);
 		return artist.getComments();
 	}

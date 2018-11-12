@@ -14,6 +14,8 @@ public class Comment {
 	@GeneratedValue
 	private Long id;
 
+	private int rating;
+
 	@Lob
 	private String text;
 
@@ -32,6 +34,24 @@ public class Comment {
 	private String username;
 
 	public Comment() {
+	}
+
+	public Comment(String username, int rating, String text, Artist artist) {
+		this.username = username;
+		this.text = text;
+		this.rating = rating;
+	}
+
+	public Comment(String username, int rating, String text, Album album) {
+		this.username = username;
+		this.text = text;
+		this.rating = rating;
+	}
+
+	public Comment(String username, int rating, String text, Song song) {
+		this.username = username;
+		this.text = text;
+		this.rating = rating;
 	}
 
 	public Comment(String username, String text) {
@@ -61,6 +81,10 @@ public class Comment {
 
 	public Album getAlbum() {
 		return album;
+	}
+
+	public int getRating() {
+		return rating;
 	}
 
 }
