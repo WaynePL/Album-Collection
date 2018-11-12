@@ -40,18 +40,21 @@ public class Comment {
 		this.username = username;
 		this.text = text;
 		this.rating = rating;
+		this.artist = artist;
 	}
 
 	public Comment(String username, int rating, String text, Album album) {
 		this.username = username;
 		this.text = text;
 		this.rating = rating;
+		this.album = album;
 	}
 
 	public Comment(String username, int rating, String text, Song song) {
 		this.username = username;
 		this.text = text;
 		this.rating = rating;
+		this.song = song;
 	}
 
 	public Comment(String username, String text) {

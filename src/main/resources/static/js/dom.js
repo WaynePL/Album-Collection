@@ -86,7 +86,9 @@ function makeCommentSection(entityComments, parentId, entity){
 		const comments = document.createElement('div');
 		comments.classList.add('comment');
 		comments.innerHTML += `
-			<p>${comment.text}</p>
+			<p>Username: ${comment.username}</p>
+			<p>Comment: ${comment.text}</p>
+			<p>Rating: ${comment.rating}/5</p>
 		`
 		main.appendChild(comments);	
 	})
@@ -96,7 +98,7 @@ function makeCommentSection(entityComments, parentId, entity){
 	button.addEventListener('click', () =>{
 		makeForms('Username:', 'username');
 		makeForms('Comment:', 'commentName');
-		makeForms('Rating:', 'rating')
+		makeForms('Rating(1-5):', 'rating')
 		const submitButton = document.createElement('button');
 		const username = document.querySelector('#username')
 		const commentName = document.querySelector('#commentName');
