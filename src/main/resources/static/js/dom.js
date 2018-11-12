@@ -23,7 +23,7 @@ function makeArtistMain(jsonArray){
 				${artist.name}
 			</h2>
 		`
-		addMakeMain(div, makeAlbumMain, artist.albums, artist.name) 
+		addMakeMain(div, makeAlbumMain,artist) 
 		main.appendChild(div)
 	})
 	makeAddArtistButton()
@@ -55,12 +55,12 @@ function makeAddArtistButton(){
 	main.appendChild(button)
 }
 
-function makeAlbumMain(albums, parentName){
+function makeAlbumMain(artist){
 	document.querySelector('.returnToArtist').style.display = 'block';
 	removeChildren(main);
 	//main.childNodes.forEach(elem => elem.remove())
 
-	albums.forEach(album => {
+	artist.albums.forEach(album => {
 		const div = document.createElement('div');
 		div.classList.add('main_content')
 		div.innerHTML += `
@@ -69,14 +69,14 @@ function makeAlbumMain(albums, parentName){
 				${album.name}
 			</h2>
 		`
-		addMakeMain(div, makeSongMain, album.songs, album.name)
+		addMakeMain(div, makeSongMain, album)
 		main.appendChild(div);
 	})
-	makeAddAlbumButton(parentName);
-	makeTagSection(artist.tags, artist.name);
+	makeAddAlbumButton(artist.name);
+	makeTagSection(artist.tags, artist.id);
 }
 
-function makeTagSection(entityTags, parentName){
+function makeTagSection(entityTags, parentId){
 	entityTags.forEach(tag =>{
 		const tags = document.createElement('div');
 		tags.classList.add('tag');
@@ -90,24 +90,24 @@ function makeTagSection(entityTags, parentName){
 	button.innerText = 'Add Tag';
 	button.addEventListener('click', () =>{
 		makeForms('Tag:', 'tagName');
-		const tagName = querySelector('#tagName');
-		const submitButton = document.createElement('button')	
-		submitButton.innerText = 'Submit';	
+		const submitButton = document.createElement('button');
 
-		submitButton.addEventListener('click', () => {			
-			//post new album using the appropriate input.value
-			fetch(`api/artist/add-tag`, {
+		const tagName = document.querySelector('#tagName');
+		submitButton.innerText = 'Submit';
+		main.appendChild(submitButton);	
+
+		submitButton.addEventListener('click', () => {
+			fetch(`api/${parentId}/add-tag`, {
 				method: 'post',
 				body: JSON.stringify({
 					name: tagName.value,
-					album: parentName
 				})
 			}).then(response => response.json()).then(data => {makeTagSection(data)})
 		})
+		//removes original add button when pressed
+		button.remove();
 	})
-
-
-
+	main.appendChild(button);
 }
 
 function makeAddAlbumButton(parentName) {
@@ -147,11 +147,11 @@ function makeAddAlbumButton(parentName) {
 	main.appendChild(button)
 }
 
-function makeSongMain(album, parentName){
+function makeSongMain(album){
 	document.querySelector('.returnToArtist').style.display = 'block';
 	removeChildren(main);
 
-	album.forEach(song => {
+	album.songs.forEach(song => {
 		const div = document.createElement('div');
 		div.classList.add('main_content');
 		div.innerHTML += `
@@ -164,7 +164,8 @@ function makeSongMain(album, parentName){
 		`
 		main.appendChild(div)
 	})
-	makeAddSongButton(parentName)
+	makeAddSongButton(album.name);
+	makeTagSection(album.tags, album.id)
 }
 
 
@@ -193,22 +194,21 @@ function makeAddSongButton(parentName){
 		})
 		button.remove();
 	})
-	main.appendChild(button)
+	main.appendChild(button);
 }
 
 function makeForms(labelText, id){
-	const main = document.querySelector('main');
 	const input = document.createElement('input');
 	const label = document.createElement('label')
-	label.innerText = labelText
+	label.innerText = labelText;
 	input.id = id;
 	input.setAttribute('type', 'text');
-	label.appendChild(input)
-	main.appendChild(label)
+	label.appendChild(input);
+	main.appendChild(label);
 }
 
-function addMakeMain(div, makeMain, array, parentName){
-	div.addEventListener('click', () => {makeMain(array, parentName)});
+function addMakeMain(div, makeMain, parentEntity){
+	div.addEventListener('click', () => {makeMain(parentEntity)});
 }
 
 /*
