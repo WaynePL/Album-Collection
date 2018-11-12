@@ -31,14 +31,6 @@ public class Comment {
 
 	private String username;
 
-	public Artist getArtist() {
-		return artist;
-	}
-
-	public Song getSong() {
-		return song;
-	}
-
 	public Comment() {
 	}
 
@@ -49,6 +41,14 @@ public class Comment {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public Song getSong() {
+		return song;
 	}
 
 	public Long getId() {
