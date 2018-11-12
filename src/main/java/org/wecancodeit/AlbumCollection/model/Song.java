@@ -18,7 +18,7 @@ public class Song {
 	@GeneratedValue
 	private Long id;
 
-	private String title;
+	private String name;
 	private String time;
 
 	@JsonIgnore
@@ -32,7 +32,7 @@ public class Song {
 	private Collection<Tag> tags;
 
 	public String getTitle() {
-		return title;
+		return name;
 	}
 
 	public Album getAlbum() {
@@ -51,7 +51,7 @@ public class Song {
 	}
 
 	public Song(String title, String time, Album album) {
-		this.title = title;
+		this.name = title;
 		this.time = time;
 		this.album = album;
 	}
@@ -61,7 +61,7 @@ public class Song {
 	}
 
 	public String getName() {
-		return title;
+		return name;
 	}
 
 	public String getTime() {

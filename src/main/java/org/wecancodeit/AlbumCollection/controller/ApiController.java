@@ -74,29 +74,35 @@ public class ApiController {
 		return album.getSongs();
 	}
 
-	@PostMapping("api/artist/tag/add")
-	public Collection<Tag> addArtistTag(@RequestBody String body) throws JSONException {
+	@PostMapping("api/artist/{id}/add-tag")
+	public Collection<Tag> addArtistTag(@PathVariable(value = "id") Long id, @RequestBody String body)
+			throws JSONException {
 		JSONObject json = new JSONObject(body);
-		Artist artist = artistRepo.findByName(json.getString("artist"));
-		tagRepo.save(new Tag(json.getString("tag"), artist));
+		Artist artist = artistRepo.findById(id).get();
+		System.out.println(new Tag(json.getString("name"), artistRepo.findById(id).get()).getTagName());
+		Tag tag = tagRepo.save(new Tag(json.getString("name"), artist));
+		System.out.println(tag.getTagName());
 		artistRepo.save(artist);
+		System.out.println(artist.getTags().size());
 		return artist.getTags();
 	}
 
-	@PostMapping("api/album/tag/add")
-	public Collection<Tag> addAlbumTag(@RequestBody String body) throws JSONException {
+	@PostMapping("api/album/{id}/add-tag")
+	public Collection<Tag> addAlbumTag(@PathVariable(value = "id") Long id, @RequestBody String body)
+			throws JSONException {
 		JSONObject json = new JSONObject(body);
-		Album album = albumRepo.findByName(json.getString("album"));
-		tagRepo.save(new Tag(json.getString("tag"), album));
+		Album album = albumRepo.findById(id).get();
+		tagRepo.save(new Tag(json.getString("name"), album));
 		albumRepo.save(album);
 		return album.getTags();
 	}
 
-	@PostMapping("api/artist/tag/add")
-	public Collection<Tag> addSongTag(@RequestBody String body) throws JSONException {
+	@PostMapping("api/song/{id}/add-tag")
+	public Collection<Tag> addSongTag(@PathVariable(value = "id") Long id, @RequestBody String body)
+			throws JSONException {
 		JSONObject json = new JSONObject(body);
-		Song song = songRepo.findByName(json.getString("song"));
-		tagRepo.save(new Tag(json.getString("tag"), song));
+		Song song = songRepo.findById(id).get();
+		tagRepo.save(new Tag(json.getString("name"), song));
 		songRepo.save(song);
 		return song.getTags();
 	}

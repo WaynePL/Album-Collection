@@ -23,7 +23,7 @@ function makeArtistMain(jsonArray){
 				${artist.name}
 			</h2>
 		`
-		addMakeMain(div, makeAlbumMain,artist) 
+		addMakeMain(div, makeAlbumMain, artist) 
 		main.appendChild(div)
 	})
 	makeAddArtistButton()
@@ -73,10 +73,10 @@ function makeAlbumMain(artist){
 		main.appendChild(div);
 	})
 	makeAddAlbumButton(artist.name);
-	makeTagSection(artist.tags, artist.id);
+	makeTagSection(artist.tags, artist.id, 'artist');
 }
 
-function makeTagSection(entityTags, parentId){
+function makeTagSection(entityTags, parentId, entity){
 	entityTags.forEach(tag =>{
 		const tags = document.createElement('div');
 		tags.classList.add('tag');
@@ -97,7 +97,7 @@ function makeTagSection(entityTags, parentId){
 		main.appendChild(submitButton);	
 
 		submitButton.addEventListener('click', () => {
-			fetch(`api/${parentId}/add-tag`, {
+			fetch(`api/${entity}/${parentId}/add-tag`, {
 				method: 'post',
 				body: JSON.stringify({
 					name: tagName.value,
@@ -165,7 +165,7 @@ function makeSongMain(album){
 		main.appendChild(div)
 	})
 	makeAddSongButton(album.name);
-	makeTagSection(album.tags, album.id)
+	makeTagSection(album.tags, album.id, 'album')
 }
 
 
@@ -218,15 +218,6 @@ function showComments(jsonArray){
 	})
 }
 */
-
-
-fetch(`api/${subject}/tag/add`, {
-	method: 'post',
-	body: JSONStringify({
-		${subject}: tag,
-		
-	})
-})
 
 module.exports = {
 	makeArtistMain,

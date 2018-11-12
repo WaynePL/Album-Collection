@@ -1,5 +1,6 @@
 package org.wecancodeit.AlbumCollection.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -15,8 +16,27 @@ public class Tag {
 	public Tag() {
 	}
 
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	private String tagName;
+
+	@JsonIgnore
+	@ManyToMany
+	private Collection<Artist> artists = new ArrayList<Artist>();
+
+	@JsonIgnore
+	@ManyToMany
+	private Collection<Album> albums = new ArrayList<Album>();
+
+	@JsonIgnore
+	@ManyToMany
+	private Collection<Song> songs = new ArrayList<Song>();
+
 	public Tag(String tagName, Artist artist) {
 		this.tagName = tagName;
+		System.out.println(artists);
 		artists.add(artist);
 	}
 
@@ -29,24 +49,6 @@ public class Tag {
 		this.tagName = tagName;
 		songs.add(song);
 	}
-
-	@Id
-	@GeneratedValue
-	private Long id;
-
-	private String tagName;
-
-	@JsonIgnore
-	@ManyToMany
-	private Collection<Artist> artists;
-
-	@JsonIgnore
-	@ManyToMany
-	private Collection<Album> albums;
-
-	@JsonIgnore
-	@ManyToMany
-	private Collection<Song> songs;
 
 	public String getTagName() {
 		return tagName;
