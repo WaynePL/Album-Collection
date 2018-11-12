@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -16,6 +17,7 @@ public class Artist {
 	@GeneratedValue
 	private Long id;
 	private String name;
+	@Lob
 	private String imageURL;
 
 	@OneToMany(mappedBy = "artist")

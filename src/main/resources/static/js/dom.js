@@ -78,7 +78,6 @@ function makeAlbumMain(artist){
 }
 
 function makeCommentSection(entityComments, parentId, entity){
-	console.log(entityComments);
 	const commentList = document.querySelectorAll('.comment');
 	commentList.forEach(element => {element.remove()})
 
@@ -92,7 +91,7 @@ function makeCommentSection(entityComments, parentId, entity){
 		`
 		main.appendChild(comments);	
 	})
-		//makes addTag button
+		//makes addComment button
 	const button = document.createElement('button')
 	button.innerText = 'Add Comment';
 	button.addEventListener('click', () =>{
@@ -205,7 +204,7 @@ function makeAddAlbumButton(parentName) {
 					artistName: parentName
 				})
 				//fetch generates new page using (V "data" right here) given back from the controller
-			}).then(response => response.json()).then(data => {makeAlbumMain(data)})
+			}).then(response => response.json()).then(data => {console.log(data); makeAlbumMain(data)})
 		})
 		//removes original add button when pressed
 		button.remove();

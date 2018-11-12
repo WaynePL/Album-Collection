@@ -63,20 +63,20 @@ public class ApiController {
 	}
 
 	@PostMapping("api/album/add")
-	public Collection<Album> addNewAlbums(@RequestBody String body) throws JSONException {
+	public Artist addNewAlbums(@RequestBody String body) throws JSONException {
 		JSONObject json = new JSONObject(body);
 		Artist artist = artistRepo.findByName(json.getString("artistName"));
 		albumRepo.save(
 				new Album(json.getString("name"), json.getString("imageUrl"), json.getString("recordLabel"), artist));
-		return artist.getAlbums();
+		return artist;
 	}
 
 	@PostMapping("api/song/add")
-	public Collection<Song> addNewSong(@RequestBody String body) throws JSONException {
+	public Album addNewSong(@RequestBody String body) throws JSONException {
 		JSONObject json = new JSONObject(body);
 		Album album = albumRepo.findByName(json.getString("album"));
 		songRepo.save(new Song(json.getString("name"), json.getString("length"), album));
-		return album.getSongs();
+		return album;
 	}
 
 	@PostMapping("api/artist/{id}/add-tag")
