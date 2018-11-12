@@ -102,7 +102,7 @@ function makeTagSection(entityTags, parentId, entity){
 				body: JSON.stringify({
 					name: tagName.value,
 				})
-			}).then(response => response.json()).then(data => {makeTagSection(data)})
+			}).then(response => response.json()).then(data => {makeTagSection(data,parentId, entity)})
 		})
 		//removes original add button when pressed
 		button.remove();

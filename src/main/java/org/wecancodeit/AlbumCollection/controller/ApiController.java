@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.wecancodeit.AlbumCollection.model.Album;
 import org.wecancodeit.AlbumCollection.model.Artist;
+import org.wecancodeit.AlbumCollection.model.Comment;
 import org.wecancodeit.AlbumCollection.model.Song;
 import org.wecancodeit.AlbumCollection.model.Tag;
 import org.wecancodeit.AlbumCollection.repositories.AlbumRepository;
@@ -105,5 +106,35 @@ public class ApiController {
 		tagRepo.save(new Tag(json.getString("name"), song));
 		songRepo.save(song);
 		return song.getTags();
+	}
+
+	@PostMapping("api/song/{id}/add-comment")
+	public Collection<Comment> addSongComment(@PathVariable(value = "id") Long id, @RequestBody String body)
+			throws JSONException {
+		JSONObject json = new JSONObject(body);
+		Song song = songRepo.findById(id).get();
+		tagRepo.save(new Tag(json.getString("name"), song));
+		songRepo.save(song);
+		return song.getComments();
+	}
+
+	@PostMapping("api/album/{id}/add-tag")
+	public Collection<Comment> addAlbumComment(@PathVariable(value = "id") Long id, @RequestBody String body)
+			throws JSONException {
+		JSONObject json = new JSONObject(body);
+		Album album = albumRepo.findById(id).get();
+		tagRepo.save(new Tag(json.getString("name"), album));
+		albumRepo.save(album);
+		return album.getComments();
+	}
+
+	@PostMapping("api//{id}/add-tag")
+	public Collection<Comment> addArtistComment(@PathVariable(value = "id") Long id, @RequestBody String body)
+			throws JSONException {
+		JSONObject json = new JSONObject(body);
+		Artist artist = artistRepo.findById(id).get();
+		tagRepo.save(new Tag(json.getString("name"), artist));
+		artistRepo.save(artist);
+		return artist.getComments();
 	}
 }
