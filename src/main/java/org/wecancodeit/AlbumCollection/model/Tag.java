@@ -15,8 +15,19 @@ public class Tag {
 	public Tag() {
 	}
 
-	public Tag(String tagName) {
+	public Tag(String tagName, Artist artist) {
 		this.tagName = tagName;
+		artists.add(artist);
+	}
+
+	public Tag(String tagName, Album album) {
+		this.tagName = tagName;
+		albums.add(album);
+	}
+
+	public Tag(String tagName, Song song) {
+		this.tagName = tagName;
+		songs.add(song);
 	}
 
 	@Id
@@ -26,16 +37,16 @@ public class Tag {
 	private String tagName;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "tags")
+	@ManyToMany
+	private Collection<Artist> artists;
+
+	@JsonIgnore
+	@ManyToMany
 	private Collection<Album> albums;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "tags")
+	@ManyToMany
 	private Collection<Song> songs;
-
-	@JsonIgnore
-	@ManyToMany(mappedBy = "tags")
-	private Collection<Artist> artists;
 
 	public String getTagName() {
 		return tagName;

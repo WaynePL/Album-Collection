@@ -25,10 +25,10 @@ public class Song {
 	@ManyToOne
 	private Album album;
 
-	@OneToMany
+	@OneToMany(mappedBy = "song")
 	private Collection<Comment> comments;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "songs")
 	private Collection<Tag> tags;
 
 	public String getTitle() {

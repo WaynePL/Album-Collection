@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.wecancodeit.AlbumCollection.model.Album;
 import org.wecancodeit.AlbumCollection.model.Artist;
 import org.wecancodeit.AlbumCollection.model.Song;
+import org.wecancodeit.AlbumCollection.model.Tag;
 import org.wecancodeit.AlbumCollection.repositories.AlbumRepository;
 import org.wecancodeit.AlbumCollection.repositories.ArtistRepository;
 import org.wecancodeit.AlbumCollection.repositories.SongRepository;
+import org.wecancodeit.AlbumCollection.repositories.TagRepository;
 
 @RestController
 public class ApiController {
@@ -28,6 +30,9 @@ public class ApiController {
 
 	@Autowired
 	SongRepository songRepo;
+
+	@Autowired
+	TagRepository tagRepo;
 
 	@GetMapping("/api/artist/{id}")
 	public Artist getOneArtist(@PathVariable(value = "id") Long id) {
@@ -67,5 +72,32 @@ public class ApiController {
 		Album album = albumRepo.findByName(json.getString("album"));
 		songRepo.save(new Song(json.getString("name"), json.getString("length"), album));
 		return album.getSongs();
+	}
+
+	@PostMapping("api/artist/tag/add")
+	public Collection<Tag> addArtistTag(@RequestBody String body) throws JSONException {
+		JSONObject json = new JSONObject(body);
+		Artist artist = artistRepo.findByName(json.getString("artistName"));
+		tagRepo.save(new Tag(json.getString("tag"), artist));
+		artistRepo.save(artist);
+		return artist.getTags();
+	}
+
+	@PostMapping("api/album/tag/add")
+	public Collection<Tag> addAlbumTag(@RequestBody String body) throws JSONException {
+		JSONObject json = new JSONObject(body);
+		Album album = albumRepo.findByName(json.getString("albumName"));
+		tagRepo.save(new Tag(json.getString("tag"), album));
+		albumRepo.save(album);
+		return album.getTags();
+	}
+
+	@PostMapping("api/artist/tag/add")
+	public Collection<Tag> addSongTag(@RequestBody String body) throws JSONException {
+		JSONObject json = new JSONObject(body);
+		Song song = songRepo.findByName(json.getString("songName"));
+		tagRepo.save(new Tag(json.getString("tag"), song));
+		songRepo.save(song);
+		return song.getTags();
 	}
 }

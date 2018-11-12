@@ -21,7 +21,7 @@ public class Artist {
 	@OneToMany(mappedBy = "artist")
 	private Collection<Album> albums = new ArrayList<Album>();
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "artists")
 	private Collection<Tag> tags;
 
 	@OneToMany(mappedBy = "artist")

@@ -45,7 +45,7 @@ public class Album {
 	@OneToMany(mappedBy = "album")
 	private Collection<Comment> comments;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "albums")
 	private Collection<Tag> tags = new ArrayList<>();
 
 	public Album() {
