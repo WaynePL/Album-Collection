@@ -43,7 +43,7 @@ public class Album {
 	private Artist artist;
 
 	@OneToMany(mappedBy = "album")
-	private Collection<Comment> comments;
+	private Collection<Comment> comments = new ArrayList<Comment>();
 
 	@ManyToMany(mappedBy = "albums")
 	private Collection<Tag> tags = new ArrayList<>();

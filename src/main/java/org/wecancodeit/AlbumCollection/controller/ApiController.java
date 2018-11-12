@@ -139,10 +139,10 @@ public class ApiController {
 			throws JSONException {
 		JSONObject json = new JSONObject(body);
 		Artist artist = artistRepo.findById(id).get();
-		System.out.println(body);
 		commentRepo.save(
 				new Comment(json.getString("username"), json.getInt("rating"), json.getString("comment"), artist));
 		artistRepo.save(artist);
+		System.out.println(artist.getComments());
 		return artist.getComments();
 	}
 }

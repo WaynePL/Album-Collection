@@ -1,5 +1,6 @@
 package org.wecancodeit.AlbumCollection.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class Song {
 	private Album album;
 
 	@OneToMany(mappedBy = "song")
-	private Collection<Comment> comments;
+	private Collection<Comment> comments = new ArrayList<Comment>();
 
 	@ManyToMany(mappedBy = "songs")
 	private Collection<Tag> tags;

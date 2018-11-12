@@ -25,7 +25,7 @@ public class Artist {
 	private Collection<Tag> tags;
 
 	@OneToMany(mappedBy = "artist")
-	private Collection<Comment> comments;
+	private Collection<Comment> comments = new ArrayList<Comment>();
 
 	public Collection<Tag> getTags() {
 		return tags;

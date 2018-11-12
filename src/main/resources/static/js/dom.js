@@ -78,7 +78,7 @@ function makeAlbumMain(artist){
 }
 
 function makeCommentSection(entityComments, parentId, entity){
-
+	console.log(entityComments);
 	const commentList = document.querySelectorAll('.comment');
 	commentList.forEach(element => {element.remove()})
 
@@ -102,6 +102,8 @@ function makeCommentSection(entityComments, parentId, entity){
 		const commentName = document.querySelector('#commentName');
 		const rating = document.querySelector('#rating')
 		rating.type = 'number';
+		rating.setAttribute('min', '1');
+		rating.setAttribute('max', '5');
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);	
 
@@ -227,7 +229,6 @@ function makeSongMain(album){
 		main.appendChild(div)
 	})
 	makeAddSongButton(album.name);
-	console.log('adding comments')
 	makeCommentSection(album.comments, album.id, 'album')
 	makeTagSection(album.tags, album.id, 'album')
 }
