@@ -73,7 +73,52 @@ function makeAlbumMain(artist){
 		main.appendChild(div);
 	})
 	makeAddAlbumButton(artist.name);
+	makeCommentSection(artist.comments, artist.id, 'artist');
 	makeTagSection(artist.tags, artist.id, 'artist');
+}
+
+function makeCommentSection(entityComments, parentId, entity){
+
+	const commentList = document.querySelectorAll('.comment');
+	commentList.forEach(element => {element.remove()})
+
+	entityComments.forEach(comment =>{
+		const comments = document.createElement('div');
+		comments.classList.add('comment');
+		comments.innerHTML += `
+			<p>${comment.text}</p>
+		`
+		main.appendChild(comments);	
+	})
+		//makes addTag button
+	const button = document.createElement('button')
+	button.innerText = 'Add Comment';
+	button.addEventListener('click', () =>{
+		makeForms('Username:', 'username');
+		makeForms('Comment:', 'commentName');
+		const submitButton = document.createElement('button');
+		const username = document.querySelector('#username')
+		const commentName = document.querySelector('#commentName');
+		submitButton.innerText = 'Submit';
+		main.appendChild(submitButton);	
+
+		submitButton.addEventListener('click', () => {
+			fetch(`api/${entity}/${parentId}/add-comment`, {
+				method: 'post',
+				body: JSON.stringify({
+					comment: commentName.value,
+					username: username.value
+				})
+			}).then(response => response.json()).then(data => {makeCommentSection(data, parentId, entity)})
+			document.querySelector('.commentName').remove();
+			commentName.remove();
+			submitButton.remove();
+
+		})
+		//removes original add button when pressed
+		button.remove();
+	})
+	main.appendChild(button);
 }
 
 function makeTagSection(entityTags, parentId, entity){
@@ -173,6 +218,7 @@ function makeSongMain(album){
 		main.appendChild(div)
 	})
 	makeAddSongButton(album.name);
+	makeCommentSection(album.comments, album.id, 'album')
 	makeTagSection(album.tags, album.id, 'album')
 }
 
