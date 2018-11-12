@@ -77,6 +77,10 @@ function makeAlbumMain(artist){
 }
 
 function makeTagSection(entityTags, parentId, entity){
+
+	const tagList = document.querySelectorAll('.tag');
+	tagList.forEach(element => {element.remove()})
+
 	entityTags.forEach(tag =>{
 		const tags = document.createElement('div');
 		tags.classList.add('tag');
@@ -102,7 +106,11 @@ function makeTagSection(entityTags, parentId, entity){
 				body: JSON.stringify({
 					name: tagName.value,
 				})
-			}).then(response => response.json()).then(data => {makeTagSection(data)})
+			}).then(response => response.json()).then(data => {makeTagSection(data, parentId, entity)})
+			document.querySelector('.tagName').remove();
+			tagName.remove();
+			submitButton.remove();
+
 		})
 		//removes original add button when pressed
 		button.remove();
@@ -201,6 +209,7 @@ function makeForms(labelText, id){
 	const input = document.createElement('input');
 	const label = document.createElement('label')
 	label.innerText = labelText;
+	label.classList.add(id);
 	input.id = id;
 	input.setAttribute('type', 'text');
 	label.appendChild(input);
