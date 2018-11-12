@@ -96,9 +96,12 @@ function makeCommentSection(entityComments, parentId, entity){
 	button.addEventListener('click', () =>{
 		makeForms('Username:', 'username');
 		makeForms('Comment:', 'commentName');
+		makeForms('Rating:', 'rating')
 		const submitButton = document.createElement('button');
 		const username = document.querySelector('#username')
 		const commentName = document.querySelector('#commentName');
+		const rating = document.querySelector('#rating')
+		rating.type = 'number';
 		submitButton.innerText = 'Submit';
 		main.appendChild(submitButton);	
 
@@ -107,11 +110,16 @@ function makeCommentSection(entityComments, parentId, entity){
 				method: 'post',
 				body: JSON.stringify({
 					comment: commentName.value,
-					username: username.value
+					username: username.value,
+					rating: rating.value
 				})
 			}).then(response => response.json()).then(data => {makeCommentSection(data, parentId, entity)})
 			document.querySelector('.commentName').remove();
+			document.querySelector('.username').remove();
+			document.querySelector('.rating').remove();
 			commentName.remove();
+			username.remove();
+			rating.remove();
 			submitButton.remove();
 
 		})

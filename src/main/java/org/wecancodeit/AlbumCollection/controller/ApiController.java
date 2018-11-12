@@ -117,7 +117,8 @@ public class ApiController {
 			throws JSONException {
 		JSONObject json = new JSONObject(body);
 		Song song = songRepo.findById(id).get();
-		commentRepo.save(new Comment(json.getString("username"), json.getInt("rating"), json.getString("name"), song));
+		commentRepo
+				.save(new Comment(json.getString("username"), json.getInt("rating"), json.getString("comment"), song));
 		songRepo.save(song);
 		return song.getComments();
 	}
@@ -127,7 +128,8 @@ public class ApiController {
 			throws JSONException {
 		JSONObject json = new JSONObject(body);
 		Album album = albumRepo.findById(id).get();
-		commentRepo.save(new Comment(json.getString("username"), json.getInt("rating"), json.getString("name"), album));
+		commentRepo
+				.save(new Comment(json.getString("username"), json.getInt("rating"), json.getString("comment"), album));
 		albumRepo.save(album);
 		return album.getComments();
 	}
@@ -137,8 +139,9 @@ public class ApiController {
 			throws JSONException {
 		JSONObject json = new JSONObject(body);
 		Artist artist = artistRepo.findById(id).get();
-		commentRepo
-				.save(new Comment(json.getString("username"), json.getInt("rating"), json.getString("name"), artist));
+		System.out.println(body);
+		commentRepo.save(
+				new Comment(json.getString("username"), json.getInt("rating"), json.getString("comment"), artist));
 		artistRepo.save(artist);
 		return artist.getComments();
 	}
