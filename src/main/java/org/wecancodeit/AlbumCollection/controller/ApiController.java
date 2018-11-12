@@ -128,7 +128,7 @@ public class ApiController {
 		return album.getComments();
 	}
 
-	@PostMapping("api//{id}/add-tag")
+	@PostMapping("api/artist/{id}/add-tag")
 	public Collection<Comment> addArtistComment(@PathVariable(value = "id") Long id, @RequestBody String body)
 			throws JSONException {
 		JSONObject json = new JSONObject(body);
