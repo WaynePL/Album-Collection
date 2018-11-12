@@ -1,7 +1,26 @@
 *{
 	margin: 0;
 	padding: 0;
+	font-family: sans-serif;
+}
 
+:root { 
+  --primary: #010038;
+  --secondary: #53A9FF;
+  --dark: #264C7F;
+}
+
+button {
+	padding: 0.5rem;
+	margin: 1rem;
+}
+
+.comment {
+	padding: 1rem;
+}
+
+.comment *{
+	padding: 0.5rem;
 }
 
 html{
@@ -12,7 +31,7 @@ html{
 }
 
 header {
-	background-color: #010038;
+	background-color: var(--primary);
 	color: white;
 	margin: 2rem;
 	padding: 2rem;
@@ -23,7 +42,14 @@ header {
 
 footer{
 	margin-top: 500px;
+	display: flex;
+    flex-direction: column;
 }
+
+label{
+	padding: 2rem;
+}
+
 .main_content {
 	margin: 2rem;	
 	display: flex;
@@ -50,4 +76,14 @@ footer{
 .song_item h4 {
 	align-self: center;
 	padding-right: 1rem;
+}
+
+.tag {
+	margin: 1.2rem;
+	background-color: lightBlue;
+	padding: 0.5rem;
+	border-radius: 15px;
+	max-width: 100px;
+	color: black;
+	font-weight: bold;
 }	
