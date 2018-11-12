@@ -77,7 +77,7 @@ public class ApiController {
 	@PostMapping("api/artist/tag/add")
 	public Collection<Tag> addArtistTag(@RequestBody String body) throws JSONException {
 		JSONObject json = new JSONObject(body);
-		Artist artist = artistRepo.findByName(json.getString("artistName"));
+		Artist artist = artistRepo.findByName(json.getString("artist"));
 		tagRepo.save(new Tag(json.getString("tag"), artist));
 		artistRepo.save(artist);
 		return artist.getTags();
@@ -86,7 +86,7 @@ public class ApiController {
 	@PostMapping("api/album/tag/add")
 	public Collection<Tag> addAlbumTag(@RequestBody String body) throws JSONException {
 		JSONObject json = new JSONObject(body);
-		Album album = albumRepo.findByName(json.getString("albumName"));
+		Album album = albumRepo.findByName(json.getString("album"));
 		tagRepo.save(new Tag(json.getString("tag"), album));
 		albumRepo.save(album);
 		return album.getTags();
@@ -95,7 +95,7 @@ public class ApiController {
 	@PostMapping("api/artist/tag/add")
 	public Collection<Tag> addSongTag(@RequestBody String body) throws JSONException {
 		JSONObject json = new JSONObject(body);
-		Song song = songRepo.findByName(json.getString("songName"));
+		Song song = songRepo.findByName(json.getString("song"));
 		tagRepo.save(new Tag(json.getString("tag"), song));
 		songRepo.save(song);
 		return song.getTags();

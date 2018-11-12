@@ -220,6 +220,14 @@ function showComments(jsonArray){
 */
 
 
+fetch(`api/${subject}/tag/add`, {
+	method: 'post',
+	body: JSONStringify({
+		${subject}: tag,
+		
+	})
+})
+
 module.exports = {
 	makeArtistMain,
 	makeAlbumMain,
