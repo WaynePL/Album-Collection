@@ -151,6 +151,7 @@ function makeTagSection(entityTags, parentId, entity){
 				body: JSON.stringify({
 					name: tagName.value,
 				})
+
 			}).then(response => response.json()).then(data => {makeTagSection(data, parentId, entity)})
 			document.querySelector('.tagName').remove();
 			tagName.remove();
